@@ -1,0 +1,8 @@
+.direnv/
+.vscode/
+build/
+chromium/
+coverage/
+firefox/
+node_modules/
+web-ext-artifacts/
