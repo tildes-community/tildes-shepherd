@@ -15,7 +15,7 @@ if ($browser === "firefox") {
 }
 
 browser.runtime.onInstalled.addListener(async () => {
-  if (!$dev) {
+  if ($dev) {
     await browser.runtime.openOptionsPage();
   }
 });
