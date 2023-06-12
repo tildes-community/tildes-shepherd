@@ -101,7 +101,7 @@ const options: esbuild.BuildOptions = {
 };
 
 const contentStyleOptions: esbuild.BuildOptions = {
-  entryPoints: [path.join(sourceDir, "scss/content-scripts/main.scss")],
+  entryPoints: [path.join(sourceDir, "content-scripts/scss/main.scss")],
   logLevel: options.logLevel,
   minify: options.minify,
   outfile: path.join(outDir, "css/content-scripts.css"),
