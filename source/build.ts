@@ -101,10 +101,10 @@ const options: esbuild.BuildOptions = {
 };
 
 const contentStyleOptions: esbuild.BuildOptions = {
-  entryPoints: [path.join(sourceDir, "scss/shepherd/shepherd.scss")],
+  entryPoints: [path.join(sourceDir, "scss/content-scripts/main.scss")],
   logLevel: options.logLevel,
   minify: options.minify,
-  outfile: path.join(outDir, "css/shepherd.css"),
+  outfile: path.join(outDir, "css/content-scripts.css"),
   plugins: [createSassPlugin("css")],
   sourcemap: options.sourcemap,
   target: options.target,

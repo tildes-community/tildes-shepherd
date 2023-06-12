@@ -20,7 +20,7 @@ export function createManifest(browser: string): Manifest.WebExtensionManifest {
     },
     content_scripts: [
       {
-        css: ["css/shepherd.css"],
+        css: ["css/content-scripts.css"],
         js: ["content-scripts/setup.js"],
         matches: ["https://*.tildes.net/*"],
         run_at: "document_start",
