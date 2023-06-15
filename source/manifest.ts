@@ -12,6 +12,7 @@ export function createManifest(browser: string): Manifest.WebExtensionManifest {
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: Number.NaN,
     name: "Tildes Shepherd",
+    description: "A WebExtension providing interactive guided tours of Tildes.",
     version: "0.1.0",
     permissions: ["storage"],
     options_ui: {
