@@ -1,0 +1,61 @@
+@use "sass:list";
+
+.tours {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 16px;
+}
+
+.tour {
+  background-color: var(--background-secondary);
+  border: 2px solid var(--tour-accent-color);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: auto;
+  grid-template-rows: min-content auto min-content;
+  padding: 16px;
+
+  &.completed {
+    grid-template-columns: auto min-content;
+
+    .tour-description,
+    .tour-link {
+      grid-column: 1 / 3;
+    }
+  }
+
+  $border-colors: (
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "cyan",
+    "blue",
+    "violet",
+    "magenta",
+  );
+
+  @each $color in $border-colors {
+    $color-number: list.index($border-colors, $color);
+
+    &:nth-child(#{list.length($border-colors)}n + #{$color-number}) {
+      --tour-accent-color: var(--#{$color});
+      --tour-light-accent-color: var(--light-#{$color});
+    }
+  }
+
+  .tour-link a {
+    color: var(--tour-light-accent-color);
+    font-weight: bold;
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--foreground);
+    }
+  }
+
+  .tour-completed {
+    color: var(--light-green);
+  }
+}

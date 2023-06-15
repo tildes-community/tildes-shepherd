@@ -1,0 +1,56 @@
+@use "reset";
+@use "components/page-header";
+@use "components/tours";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  --background-primary: #00171d;
+  --background-secondary: #002b36;
+  --background-tertiary: #000;
+  --foreground: #fdf6e3;
+  --red: #dc322f;
+  --light-red: #e35d5b;
+  --dark-red: #b9221f;
+  --orange: #cb4b16;
+  --light-orange: #e8632c;
+  --dark-orange: #9d3a11;
+  --yellow: #b58900;
+  --light-yellow: #e8b000;
+  --dark-yellow: #826200;
+  --green: #859900;
+  --light-green: #b1cc00;
+  --dark-green: #596600;
+  --cyan: #2aa198;
+  --light-cyan: #35c9be;
+  --dark-cyan: #1f7972;
+  --blue: #268bd2;
+  --light-blue: #4ca2df;
+  --dark-blue: #1e6ea7;
+  --violet: #6c71c4;
+  --light-violet: #9094d3;
+  --dark-violet: #484fb5;
+  --magenta: #d33682;
+  --light-magenta: #dc609c;
+  --dark-magenta: #b02669;
+
+  background-color: var(--background-primary);
+  color: var(--foreground);
+  font-size: 2rem;
+}
+
+a {
+  color: var(--accent-1);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent-2);
+    text-decoration: underline;
+  }
+}
+
+main {
+  padding: 16px;
+}
