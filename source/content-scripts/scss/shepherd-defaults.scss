@@ -1,0 +1,53 @@
+// Styles copied almost verbatim from Shepherd.js's default CSS.
+// Since we have the Tildes CSS available in the content scripts anyway, we can
+// use its classes for a lot of what we need. So instead of importing the full
+// default styling from Shepherd.js and then overriding everything, only copy
+// what we want and trim the rest.
+
+.shepherd-modal-overlay-container {
+  height: 0;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: all 0.3s ease-out, height 0ms 0.3s, opacity 0.3s 0ms;
+  width: 100vw;
+  z-index: 9997;
+
+  &.shepherd-modal-is-visible {
+    height: 100vh;
+    opacity: 0.5;
+    transform: translateZ(0);
+    transition: all 0.3s ease-out, height 0s 0s, opacity 0.3s 0s;
+
+    path {
+      pointer-events: all;
+    }
+  }
+}
+
+.shepherd-element {
+  opacity: 0;
+  outline: none;
+  padding: 16px;
+  transition: opacity 0.3s, visibility 0.3s;
+  visibility: hidden;
+  width: 100%;
+  z-index: 9999;
+
+  &.shepherd-enabled {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.shepherd-target {
+  &.shepherd-target-click-disabled {
+    &,
+    & * {
+      pointer-events: none;
+    }
+  }
+}

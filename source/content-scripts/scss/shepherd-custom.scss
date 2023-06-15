@@ -1,0 +1,71 @@
+// Extra styles for Shepherd's elements and all the elements we use inside.
+
+.shepherd-element {
+  background-color: var(--background-primary-color);
+  border: 1px dashed var(--foreground-primary-color);
+  max-width: 600px;
+
+  // For the data-popper-placement styling, since the element here has
+  // `position: absolute` with `top` and `left` set, margin-right and
+  // margin-bottom will have no effect. So to push them away slightly from the
+  // highlighted element, use margin-top and margin-left with negative margins.
+  &[data-popper-placement="bottom"] {
+    margin-top: 8px;
+  }
+
+  &[data-popper-placement="top"] {
+    margin-top: -8px;
+  }
+
+  &[data-popper-placement="left-start"] {
+    margin-left: -8px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  ol,
+  ul {
+    margin-left: 1rem;
+
+    &:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  .highlight-red {
+    color: var(--error-color);
+  }
+
+  .highlight-green {
+    color: var(--success-color);
+  }
+}
+
+.shepherd-text {
+  color: var(--foreground-primary-color);
+  margin-bottom: 0.4rem;
+}
+
+.shepherd-button {
+  margin-right: 0.4rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.shepherd-target:not(body) {
+  border: 2px solid var(--alert-color);
+  margin: 8px;
+  padding: 8px !important;
+}
