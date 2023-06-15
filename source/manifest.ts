@@ -47,7 +47,7 @@ export function createManifest(browser: string): Manifest.WebExtensionManifest {
     manifest.browser_action = action;
     manifest.browser_specific_settings = {
       gecko: {
-        // TODO: Add the AMO ID once it has been published.
+        id: "{1f735d8b-636a-4368-9a8b-afba3934bc64}",
         strict_min_version: "102.0",
       },
     };
