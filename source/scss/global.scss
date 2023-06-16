@@ -42,11 +42,12 @@ body {
 }
 
 a {
-  color: var(--accent-1);
+  color: var(--accent-1, var(--light-blue));
+  cursor: pointer;
   text-decoration: none;
 
   &:hover {
-    color: var(--accent-2);
+    color: var(--accent-2, var(--light-magenta));
     text-decoration: underline;
   }
 }
