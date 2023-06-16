@@ -4,8 +4,8 @@
 
 ## Documentation
 
-* If you'd like to contribute to the tours, see [TOURS.md].
-* To develop and run Tildes Shepherd yourself, see [DEVELOPMENT.md].
+* If you'd like to contribute to the tours, see [TOURS.md](TOURS.md).
+* To develop and run Tildes Shepherd yourself, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## License
 
