@@ -78,7 +78,7 @@ function startTour(
           classes: "btn",
           text: "Exit",
           action() {
-            this.complete();
+            this.cancel();
           },
         },
       ],
