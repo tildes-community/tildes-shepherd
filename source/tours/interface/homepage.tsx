@@ -26,17 +26,17 @@ const step02 = renderInContainer(
     <p>
       On the left there is the Tildes logo and title, which you can click to get
       back to the homepage, or refresh it if you're already there. If you are in
-      a group, the group name will also be shown.
+      a group, the group name will also be shown next to it.
     </p>
 
     <p>
       On the right is the notifications section and your username. When you have
-      unread messages and/or are mentioned, they will show up next to your
-      username. If you don't have any notifications right now, you can{" "}
+      unread messages and/or are mentioned, they will show up next to the left
+      of it. If you don't have any notifications right now, you can{" "}
       <a href="#" onClick={toggleMockNotifications}>
         click here
       </a>{" "}
-      to show a preview of what they look like.
+      to toggle a preview of what they look like.
     </p>
 
     <p>
@@ -59,11 +59,13 @@ function toggleMockNotifications(event: Event): void {
   event.preventDefault();
 
   const root = document.querySelector("#site-header .logged-in-user-info");
+
+  /* Generic function to toggle a mock notification. */
   function toggle(existingSelector: string, href: string, text: string): void {
     const existing =
       root?.querySelector<HTMLElement>(existingSelector) ?? undefined;
     if (existing === undefined) {
-      // If no notifiaction exists, render our mock.
+      // If no notification exists, render our mock.
       const messageNotification = document.createElement("a");
       const count = 1 + Math.ceil(Math.random() * 10);
       messageNotification.classList.add("logged-in-user-alert");
@@ -75,7 +77,7 @@ function toggleMockNotifications(event: Event): void {
       // If a notification exists and it has our mock attribute, remove it.
       existing.remove();
     } else {
-      // A real message notification already exists, so we do nothing.
+      // A real notification already exists, so we do nothing.
     }
   }
 
@@ -93,11 +95,8 @@ const step03 = renderInContainer(
 
     <p>
       Right below the main header are the topic listing options. These determine
-      how the topics in the listing are sorted and{" "}
-      <em>
-        <b>from</b> what period
-      </em>{" "}
-      topics should be shown.
+      how the topics in the listing are sorted and from what period topics
+      should be shown.
     </p>
 
     <p>
@@ -113,18 +112,20 @@ const step03 = renderInContainer(
         <b>Comments</b> sorts them with the most comments first.
       </li>
       <li>
-        And <b>New</b> sorts them by their date, so newest topics first.
+        And <b>New</b> sorts them by their date, so the newest topics come
+        first.
       </li>
     </ul>
 
     <p>
-      Then the first <b>Activity</b> will sort topics by bumping topics up as
-      they receive comments, however this sort makes use of comment labels.
+      Then the first <b>Activity</b> sort will sort topics by bumping topics up
+      as they receive comments, however this sort makes use of comment labels.
     </p>
 
+    {/* TODO: When the comment labels tour is made, change the prose. */}
     <p>
-      If you don't know what comment labels are yet, don't worry, there is a
-      tour that explains them. But in short they are a community tool to
+      If you don't know what comment labels are yet, don't worry, there will be
+      a tour that explains them. But in short they are a community tool to
       emphasize and de-emphasize comments, similar to votes but with more
       specific intention. If you'd like to read more, check out{" "}
       <a
@@ -137,15 +138,15 @@ const step03 = renderInContainer(
     </p>
 
     <p>
-      And finally the <b>All activity</b> sorts topics the same as Activity, but
+      And finally <b>All activity</b> sorts topics the same as Activity, but
       without taking into account any comment labels.
     </p>
 
     <p>
       If you only want to see topics from a certain period, click on the "from"
-      dropdown and select your period. Aside from a set of predefined options,
-      you can also set a custom one by clicking the "other period" option, after
-      which you'll be prompted for it.
+      dropdown and select the period you want. Aside from a set of predefined
+      options, you can also set a custom one by clicking the "other period"
+      option, after which you'll be prompted to input it.
     </p>
   </>,
 );
@@ -160,11 +161,11 @@ const step04 = renderInContainer(
       continues all the way down the page.
     </p>
 
-    <p>Here, we've marked the main elements of the topic:</p>
+    <p>Here, we've marked the main elements of a topic:</p>
 
     <ol>
       <li>
-        The topic title, when the topic is a "text topic" links to the same
+        The topic title, when the topic is a "text topic" it links to the same
         place as the comments link does. Otherwise when it's a "link topic", it
         will link to an external site.
       </li>
@@ -186,8 +187,8 @@ const step04 = renderInContainer(
       <li>
         The topic source. For text topics this is always the poster of the
         topic, but for link topics in certain groups it will be the domain name
-        together with that website's icon. For topics posted automatically by
-        Tildes itself, it will be "Scheduled topic".
+        together with that website's icon. For topics automatically posted by
+        Tildes itself, it will say "Scheduled topic".
       </li>
     </ol>
 
@@ -239,27 +240,28 @@ const step06 = renderInContainer(
     </p>
 
     <p>
-      A quick note for mobile use, the sidebar can opened via a button that
-      appears in the very top-right of the page.
+      A quick note for mobile devices, the sidebar is opened via a "Sidebar"
+      button that appears in the very top-right of the page.
     </p>
 
     <p>
       When searching from the homepage, topics will be included from any group.
       However, searching when inside a group will only include topics from that
-      group and any sub-groups.
+      group and any of its sub-groups.
     </p>
 
+    {/* TODO: Update the prose once the groups tour is created. */}
     <p>
       Below the search bar you will also find the title of the page, or name of
       the group, and a small description. The sidebar has more elements when in
-      you're in a group page, but those are touched upon in the groups tour.
+      you're in a group page, but those will be touched upon in the groups tour.
     </p>
   </>,
 );
 
 const step07 = renderInContainer(
   <>
-    <h1>The Sidebar Subscriptions</h1>
+    <h1>The Sidebar: Subscriptions</h1>
 
     <p>
       Moving on, you'll find the list of groups you are subscribed to and a
@@ -269,14 +271,15 @@ const step07 = renderInContainer(
 
     <p>
       To post a topic, subscribe or unsubscribe from any group, go to the group
-      in question and in the sidebar there will be buttons to do so.
+      page in question and in its sidebar there will be buttons to do all those
+      things.
     </p>
   </>,
 );
 
 const step08 = renderInContainer(
   <>
-    <h1>The Sidebar User Settings</h1>
+    <h1>The Sidebar: User Settings</h1>
 
     <p>
       At the bottom of the sidebar you will find some user settings.
@@ -285,9 +288,12 @@ const step08 = renderInContainer(
     </p>
 
     <p>
-      When you have filtered topics tags set, any topics with any of the tags
+      When you have filtered topics tags set, topics with any of the tags
       present will be removed from your listing. You can read more about it by
-      going to the dedicated page for it by clicking the "Edit filtered tags"
+      going to the dedicated page for it by clicking the{" "}
+      <a target="_blank" href="https://tildes.net/settings/filters">
+        "Edit filtered tags"
+      </a>{" "}
       button.
     </p>
   </>,
@@ -308,8 +314,11 @@ const step09 = renderInContainer(
     <p>
       As for the theme selector, you can change your theme with a number of
       options. When you change it here, it will only change for the current
-      device, if you'd like to set an account default for all devices, head to
-      your account settings.
+      device, if you'd like to set an account default for all devices, head to{" "}
+      <a target="_blank" href="https://tildes.net/settings">
+        your account settings
+      </a>
+      .
     </p>
   </>,
 );
