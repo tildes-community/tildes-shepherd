@@ -2,7 +2,7 @@ import type Shepherd from "shepherd.js";
 import {createIntroductionUnderstood} from "../storage/common.js";
 import {openOptionsPageFromBackground, renderInContainer} from "./utilities.js";
 
-const stepOne = renderInContainer(
+const step01 = renderInContainer(
   <>
     <h1>Thank you for installing Tildes Shepherd!</h1>
 
@@ -28,12 +28,12 @@ const stepOne = renderInContainer(
   </>,
 );
 
-const stepTwo = renderInContainer(
+const step02 = renderInContainer(
   <>
     <h1>Tour Mechanics</h1>
 
     <p>
-      During the tours, at various points we will want to highlight specific
+      During the tours at various points we will want to highlight specific
       areas. When that happens you won't be able to click anything inside them,
       mainly to prevent you from accidentally going to a different page and
       interrupting the tour. But also to prevent you from taking actions you
@@ -49,7 +49,7 @@ const stepTwo = renderInContainer(
   </>,
 );
 
-const stepThree = renderInContainer(
+const step03 = renderInContainer(
   <>
     <p>
       If you find any bugs, have feature requests or simply want to ask a
@@ -74,7 +74,7 @@ const stepThree = renderInContainer(
     </p>
 
     <p>
-      Once you click the "I understand" button below, this message won't pop up
+      Once you click the "I understand" button below, this tour won't pop up
       again, so remember the extension icon is how you get to the tours.
     </p>
 
@@ -84,8 +84,9 @@ const stepThree = renderInContainer(
 
 export const introductionSteps: Shepherd.Step.StepOptions[] = [
   {
-    id: "introduction-1",
-    text: stepOne,
+    canClickTarget: false,
+    id: "introduction-01",
+    text: step01,
   },
   {
     attachTo: {
@@ -93,8 +94,8 @@ export const introductionSteps: Shepherd.Step.StepOptions[] = [
       on: "bottom",
     },
     canClickTarget: false,
-    id: "introduction-2",
-    text: stepTwo,
+    id: "introduction-02",
+    text: step02,
   },
   {
     buttons: [
@@ -116,7 +117,8 @@ export const introductionSteps: Shepherd.Step.StepOptions[] = [
         },
       },
     ],
-    id: "introduction-3",
-    text: stepThree,
+    canClickTarget: false,
+    id: "introduction-03",
+    text: step03,
   },
 ];
