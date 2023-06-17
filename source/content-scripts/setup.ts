@@ -8,20 +8,25 @@ import {tourIdsAndSteps} from "../tours/exports.js";
 
 /** The main entry point for the content script. */
 async function main(): Promise<void> {
-  // Automatically start the introduction tour if the person hasn't already been
-  // through it and only when on the Tildes homepage.
   const introductionUnderstood = await createIntroductionUnderstood();
-  if (!introductionUnderstood.value && window.location.pathname === "/") {
-    startTour("introduction", introductionSteps, []);
-    return;
-  }
 
   // Get the anchor without the leading #.
   const anchor = window.location.hash.slice(1);
 
   // We only care about anchors with our prefix.
   const prefix = "tildes-shepherd-tour=";
-  if (!anchor.startsWith(prefix)) {
+  const startsWithPrefix = anchor.startsWith(prefix);
+
+  // Automatically start the introduction tour if the person hasn't already
+  // been through it and only when on the Tildes homepage.
+  if (!introductionUnderstood.value && window.location.pathname === "/") {
+    // If a different tour is selected but the introduction hasn't happened yet,
+    // then the main function will be rerun once this tour finishes.
+    startTour("introduction", introductionSteps, [], startsWithPrefix);
+    return;
+  }
+
+  if (!startsWithPrefix) {
     return;
   }
 
@@ -32,7 +37,7 @@ async function main(): Promise<void> {
   // ID.
   for (const [id, steps, eventHandlers] of tourIdsAndSteps) {
     if (anchorTourId === id) {
-      startTour(id, steps, eventHandlers);
+      startTour(id, steps, eventHandlers, false);
       return;
     }
   }
@@ -50,6 +55,7 @@ function startTour(
   tourId: TourId,
   steps: TourStepOptions[],
   eventHandlers: TourStepEventHandler[],
+  runMainAgainAfterComplete: boolean,
 ): void {
   const tour = new Shepherd.Tour({
     defaultStepOptions: {
@@ -92,6 +98,10 @@ function startTour(
 
     // Mark the tour as completed.
     await addCompletedTour(tourId);
+
+    if (runMainAgainAfterComplete) {
+      await main();
+    }
   });
 
   // For every step we have, add it to the tour and subsequently add all the
