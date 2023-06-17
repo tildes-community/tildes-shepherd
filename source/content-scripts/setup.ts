@@ -57,31 +57,33 @@ function startTour(
   eventHandlers: TourStepEventHandler[],
   runMainAgainAfterComplete: boolean,
 ): void {
+  const defaultButtons: Shepherd.Step.StepOptionsButton[] = [
+    {
+      classes: "btn",
+      text: "Continue",
+      action() {
+        this.next();
+      },
+    },
+    {
+      classes: "btn",
+      text: "Back",
+      action() {
+        this.back();
+      },
+    },
+    {
+      classes: "btn",
+      text: "Exit",
+      action() {
+        this.cancel();
+      },
+    },
+  ];
+
   const tour = new Shepherd.Tour({
     defaultStepOptions: {
-      buttons: [
-        {
-          classes: "btn",
-          text: "Continue",
-          action() {
-            this.next();
-          },
-        },
-        {
-          classes: "btn",
-          text: "Back",
-          action() {
-            this.back();
-          },
-        },
-        {
-          classes: "btn",
-          text: "Exit",
-          action() {
-            this.cancel();
-          },
-        },
-      ],
+      buttons: [...defaultButtons],
     },
     useModalOverlay: true,
   });
@@ -106,7 +108,14 @@ function startTour(
 
   // For every step we have, add it to the tour and subsequently add all the
   // event handlers to that step.
-  for (const stepOptions of steps) {
+  for (const [stepNumber, stepOptions] of steps.entries()) {
+    // If the final step doesn't have buttons defined, set the "Continue" button
+    // text to "Finish".
+    if (stepOptions.buttons === undefined && stepNumber + 1 === steps.length) {
+      stepOptions.buttons = [...defaultButtons];
+      stepOptions.buttons[0].text = "Finish";
+    }
+
     const step = tour.addStep(stepOptions);
 
     for (const [targetStepId, [eventName, eventHandler]] of eventHandlers) {
