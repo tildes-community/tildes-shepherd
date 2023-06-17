@@ -332,7 +332,7 @@ const step10 = renderInContainer(
     <p>
       As always, if you find any bugs, have feature requests or simply want to
       ask a question. Please send us a message at{" "}
-      <a target="_blank" href="https://tildes.net/user/Community">
+      <a target="_blank" href="https://tildes.net/user/Community/new_message">
         @Community
       </a>
       .
