@@ -13,7 +13,7 @@ export function createManifest(browser: string): Manifest.WebExtensionManifest {
     manifest_version: Number.NaN,
     name: "Tildes Shepherd",
     description: "A WebExtension providing interactive guided tours of Tildes.",
-    version: "0.1.1",
+    version: "0.1.2",
     permissions: ["storage"],
     options_ui: {
       page: "options/index.html",
