@@ -50,6 +50,8 @@ async function main(): Promise<void> {
  * @param tourId A unique ID for this tour.
  * @param steps All the steps of the tour.
  * @param eventHandlers Event handlers to attach to specific steps.
+ * @param runMainAgainAfterComplete Should the `main` function be run after this
+ * tour is completed?
  */
 function startTour(
   tourId: TourId,
