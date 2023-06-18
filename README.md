@@ -2,6 +2,8 @@
 
 > **A WebExtension providing interactive guided tours of Tildes.**
 
+[![Get Tildes Shepherd for Firefox](./images/mozilla-addons.png)](https://addons.mozilla.org/firefox/addon/tildes-shepherd)
+
 ## Documentation
 
 * If you'd like to contribute to the tours, see [TOURS.md](TOURS.md).
