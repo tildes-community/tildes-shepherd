@@ -16,7 +16,6 @@ To build and develop Tildes Shepherd you will need:
 * [NodeJS](https://nodejs.org) (recommended 18.16.0)
 * [pnpm](https://pnpm.io) (recommended 8.6.0)
 * [cargo-make](https://sagiegurari.github.io/cargo-make/)
-* [Firefox](https://mozilla.org/firefox) (recommended at least 102.0)
 
 ## cargo-make
 
