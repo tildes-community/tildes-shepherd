@@ -17,21 +17,26 @@ async function main(): Promise<void> {
   const prefix = "tildes-shepherd-tour=";
   const startsWithPrefix = anchor.startsWith(prefix);
 
+  // Get the tour ID from the anchor by removing the prefix.
+  const anchorTourId = anchor.slice(prefix.length);
+
   // Automatically start the introduction tour if the person hasn't already
   // been through it and only when on the Tildes homepage.
   if (!introductionUnderstood.value && window.location.pathname === "/") {
     // If a different tour is selected but the introduction hasn't happened yet,
     // then the main function will be rerun once this tour finishes.
-    startTour("introduction", introductionSteps, [], startsWithPrefix);
+    startTour(
+      "introduction",
+      introductionSteps,
+      [],
+      startsWithPrefix && anchorTourId !== "introduction",
+    );
     return;
   }
 
   if (!startsWithPrefix) {
     return;
   }
-
-  // Get the tour ID from the anchor by removing the prefix.
-  const anchorTourId = anchor.slice(prefix.length);
 
   // Then run through all of the tours we have and start the first match for the
   // ID.
