@@ -37,6 +37,7 @@ export class Tours extends Component<Props, State> {
     const tourProps: Array<Tour["props"]> = [
       createTour(TourId.Introduction, "Introduction"),
       createTour(TourId.InterfaceHomepage, "The Homepage"),
+      createTour(TourId.InterfaceAccountSettings, "Your Account Settings"),
     ];
 
     return (

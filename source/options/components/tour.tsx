@@ -25,6 +25,14 @@ function tourDescription(tourId: Props["tourId"]): JSX.Element {
     );
   }
 
+  if (tourId === TourId.InterfaceAccountSettings) {
+    return (
+      <p class="tour-description">
+        View your account settings and all that you can customize.
+      </p>
+    );
+  }
+
   return (
     <p class="tour-description">
       Tour ID "{tourId}" does not have a description, this should probably be
@@ -45,7 +53,14 @@ function tourLink(tourId: Props["tourId"]): string {
       break;
     }
 
-    default:
+    case TourId.InterfaceAccountSettings: {
+      path = "/settings";
+      break;
+    }
+
+    default: {
+      throw new Error(`Unswitched tour ID: ${tourId as string}`);
+    }
   }
 
   return `${baseUrl}${path}${anchor}`;

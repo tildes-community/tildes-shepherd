@@ -4,7 +4,7 @@ import {
   createIntroductionUnderstood,
 } from "../storage/common.js";
 import {introductionSteps} from "../tours/introduction.js";
-import {TourId, tourIdsAndSteps} from "../tours/exports.js";
+import {TourId, showTourError, tourIdsAndSteps} from "../tours/exports.js";
 
 /** The main entry point for the content script. */
 async function main(): Promise<void> {
@@ -38,10 +38,28 @@ async function main(): Promise<void> {
     return;
   }
 
+  const userIsLoggedIn =
+    document.querySelector(".logged-in-user-username") !== null;
+
   // Then run through all of the tours we have and start the first match for the
   // ID.
-  for (const [id, steps, eventHandlers] of tourIdsAndSteps) {
+  for (const [id, steps, eventHandlers, requirements] of tourIdsAndSteps) {
     if (anchorTourId === id) {
+      if (requirements.mustBeLoggedIn && !userIsLoggedIn) {
+        showTourError(
+          `The ${id} tour can only be shown with a logged in account.`,
+        );
+        return;
+      }
+
+      if (requirements.path !== window.location.pathname) {
+        // This tour's path requirement does not match.
+        showTourError(
+          `The ${id} tour can only be start on the ${requirements.path} page.`,
+        );
+        return;
+      }
+
       startTour(id, steps, eventHandlers, false);
       return;
     }
