@@ -1,5 +1,6 @@
 import {Component, type JSX} from "preact";
 import {createToursCompleted} from "../../storage/common.js";
+import {TourId} from "../../tours/exports.js";
 import {Tour} from "./tour.js";
 
 type Props = Record<string, unknown>;
@@ -34,8 +35,8 @@ export class Tours extends Component<Props, State> {
     };
 
     const tourProps: Array<Tour["props"]> = [
-      createTour("introduction", "Introduction"),
-      createTour("interface-homepage", "The Homepage"),
+      createTour(TourId.Introduction, "Introduction"),
+      createTour(TourId.InterfaceHomepage, "The Homepage"),
     ];
 
     return (

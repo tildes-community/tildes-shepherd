@@ -1,11 +1,14 @@
-import {homepageSteps, homepageEventHandlers} from "./interface/exports.js";
+import {homepageEventHandlers, homepageSteps} from "./interface/exports.js";
 import {introductionSteps} from "./introduction.js";
 
-export const tourIds = ["introduction", "interface-homepage"] as const;
+export enum TourId {
+  InterfaceHomepage = "interface-homepage",
+  Introduction = "introduction",
+}
 
 export const tourIdsAndSteps: Array<
   [TourId, TourStepOptions[], TourStepEventHandler[]]
 > = [
-  ["introduction", introductionSteps, []],
-  ["interface-homepage", homepageSteps, homepageEventHandlers],
+  [TourId.Introduction, introductionSteps, []],
+  [TourId.InterfaceHomepage, homepageSteps, homepageEventHandlers],
 ];

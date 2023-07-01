@@ -1,5 +1,6 @@
 import browser from "webextension-polyfill";
 import {createValue} from "@holllo/webextension-storage";
+import {type TourId} from "../tours/exports.js";
 
 export enum StorageKey {
   IntroductionUnderstood = "introduction-understood",

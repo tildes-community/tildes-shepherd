@@ -1,4 +1,5 @@
 import {Component, type JSX} from "preact";
+import {TourId} from "../../tours/exports.js";
 
 type Props = {
   hasBeenCompleted: boolean;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 function tourDescription(tourId: Props["tourId"]): JSX.Element {
-  if (tourId === "introduction") {
+  if (tourId === TourId.Introduction) {
     return (
       <p class="tour-description">
         A short introduction to Tildes Shepherd and how the tours work. Normally
@@ -16,7 +17,7 @@ function tourDescription(tourId: Props["tourId"]): JSX.Element {
     );
   }
 
-  if (tourId === "interface-homepage") {
+  if (tourId === TourId.InterfaceHomepage) {
     return (
       <p class="tour-description">
         Let's take a look at the home page and all we can do there.
@@ -38,8 +39,8 @@ function tourLink(tourId: Props["tourId"]): string {
   let path = "";
 
   switch (tourId) {
-    case "interface-homepage":
-    case "introduction": {
+    case TourId.InterfaceHomepage:
+    case TourId.Introduction: {
       path = "/";
       break;
     }

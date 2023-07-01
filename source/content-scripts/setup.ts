@@ -4,7 +4,7 @@ import {
   createIntroductionUnderstood,
 } from "../storage/common.js";
 import {introductionSteps} from "../tours/introduction.js";
-import {tourIdsAndSteps} from "../tours/exports.js";
+import {TourId, tourIdsAndSteps} from "../tours/exports.js";
 
 /** The main entry point for the content script. */
 async function main(): Promise<void> {
@@ -26,7 +26,7 @@ async function main(): Promise<void> {
     // If a different tour is selected but the introduction hasn't happened yet,
     // then the main function will be rerun once this tour finishes.
     startTour(
-      "introduction",
+      TourId.Introduction,
       introductionSteps,
       [],
       startsWithPrefix && anchorTourId !== "introduction",
