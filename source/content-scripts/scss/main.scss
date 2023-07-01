@@ -20,3 +20,9 @@
     width: 1rem;
   }
 }
+
+.tish-warning {
+  border: 1px solid var(--alert-color);
+  color: var(--alert-color);
+  padding: 8px;
+}
