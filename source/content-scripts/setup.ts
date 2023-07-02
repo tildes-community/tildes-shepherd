@@ -3,8 +3,12 @@ import {
   addCompletedTour,
   createIntroductionUnderstood,
 } from "../storage/common.js";
-import {introductionSteps} from "../tours/introduction.js";
-import {TourId, showTourError, tourIdsAndSteps} from "../tours/exports.js";
+import {
+  allTours,
+  introductionTour,
+  showTourError,
+  type TourData,
+} from "../tours/exports.js";
 
 /** The main entry point for the content script. */
 async function main(): Promise<void> {
@@ -26,9 +30,7 @@ async function main(): Promise<void> {
     // If a different tour is selected but the introduction hasn't happened yet,
     // then the main function will be rerun once this tour finishes.
     startTour(
-      TourId.Introduction,
-      introductionSteps,
-      [],
+      introductionTour,
       startsWithPrefix && anchorTourId !== "introduction",
     );
     return;
@@ -43,24 +45,24 @@ async function main(): Promise<void> {
 
   // Then run through all of the tours we have and start the first match for the
   // ID.
-  for (const [id, steps, eventHandlers, requirements] of tourIdsAndSteps) {
-    if (anchorTourId === id) {
-      if (requirements.mustBeLoggedIn && !userIsLoggedIn) {
+  for (const tour of allTours) {
+    if (anchorTourId === tour.id) {
+      if (tour.requirements.mustBeLoggedIn && !userIsLoggedIn) {
         showTourError(
-          `The ${id} tour can only be shown with a logged in account.`,
+          `The ${tour.id} tour can only be shown with a logged in account.`,
         );
         return;
       }
 
-      if (requirements.path !== window.location.pathname) {
+      if (tour.requirements.path !== window.location.pathname) {
         // This tour's path requirement does not match.
         showTourError(
-          `The ${id} tour can only be start on the ${requirements.path} page.`,
+          `The ${tour.id} tour can only be start on the ${tour.requirements.path} page.`,
         );
         return;
       }
 
-      startTour(id, steps, eventHandlers, false);
+      startTour(tour, false);
       return;
     }
   }
@@ -76,12 +78,7 @@ async function main(): Promise<void> {
  * @param runMainAgainAfterComplete Should the `main` function be run after this
  * tour is completed?
  */
-function startTour(
-  tourId: TourId,
-  steps: TourStepOptions[],
-  eventHandlers: TourStepEventHandler[],
-  runMainAgainAfterComplete: boolean,
-): void {
+function startTour(data: TourData, runMainAgainAfterComplete: boolean): void {
   const defaultButtons: Shepherd.Step.StepOptionsButton[] = [
     {
       classes: "btn",
@@ -124,7 +121,7 @@ function startTour(
     }
 
     // Mark the tour as completed.
-    await addCompletedTour(tourId);
+    await addCompletedTour(data.id);
 
     if (runMainAgainAfterComplete) {
       await main();
@@ -133,19 +130,24 @@ function startTour(
 
   // For every step we have, add it to the tour and subsequently add all the
   // event handlers to that step.
-  for (const [stepNumber, stepOptions] of steps.entries()) {
+  for (const [stepNumber, stepOptions] of data.steps.entries()) {
     // If the final step doesn't have buttons defined, set the "Continue" button
     // text to "Finish".
-    if (stepOptions.buttons === undefined && stepNumber + 1 === steps.length) {
+    if (
+      stepOptions.buttons === undefined &&
+      stepNumber + 1 === data.steps.length
+    ) {
       stepOptions.buttons = [...defaultButtons];
       stepOptions.buttons[0].text = "Finish";
     }
 
     const step = tour.addStep(stepOptions);
 
-    for (const [targetStepId, [eventName, eventHandler]] of eventHandlers) {
-      if (targetStepId === step.id) {
-        step.on(eventName, eventHandler);
+    for (const {stepId, eventHandlers} of data.eventHandlers) {
+      if (stepId === step.id) {
+        for (const {event, handler} of eventHandlers) {
+          step.on(event, handler);
+        }
       }
     }
   }

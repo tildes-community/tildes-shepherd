@@ -1,5 +1,4 @@
 import Shepherd from "shepherd.js";
-import {type TourId} from "../exports.js";
 import {renderInContainer} from "../utilities.js";
 
 export function showTourError(text: string) {

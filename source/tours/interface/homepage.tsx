@@ -1,11 +1,11 @@
-import type Shepherd from "shepherd.js";
+import {LoggedOutWarning} from "../shared/logged-out-warning.js";
+import {type TourData, TourId} from "../types.js";
 import {
   addDatasetCounter,
   encapsulateElements,
   removeAllDatasetCounters,
   renderInContainer,
 } from "../utilities.js";
-import {LoggedOutWarning} from "../shared/logged-out-warning.js";
 
 const step01 = renderInContainer(
   <>
@@ -345,7 +345,7 @@ const step10 = renderInContainer(
   </>,
 );
 
-export const steps: Shepherd.Step.StepOptions[] = [
+const steps: TourData["steps"] = [
   {
     id: "homepage-01",
     text: step01,
@@ -433,79 +433,101 @@ export const steps: Shepherd.Step.StepOptions[] = [
   },
 ];
 
-export const eventHandlers: TourStepEventHandler[] = [
-  [
-    "homepage-04",
-    [
-      "show",
-      () => {
-        const topic = ".topic-listing > li:first-child";
-        const counters = [
-          ".topic-title",
-          ".topic-metadata",
-          ".topic-info-comments",
-          ".topic-info-source",
-          "time",
-          ".topic-voting",
-          ".topic-actions",
-        ];
+const eventHandlers: TourData["eventHandlers"] = [
+  {
+    stepId: "homepage-04",
+    eventHandlers: [
+      {
+        event: "show",
+        handler() {
+          const topic = ".topic-listing > li:first-child";
+          const counters = [
+            ".topic-title",
+            ".topic-metadata",
+            ".topic-info-comments",
+            ".topic-info-source",
+            "time",
+            ".topic-voting",
+            ".topic-actions",
+          ];
 
-        for (const [count, selector] of counters.entries()) {
-          addDatasetCounter(`${topic} ${selector}`, count + 1);
-        }
+          for (const [count, selector] of counters.entries()) {
+            addDatasetCounter(`${topic} ${selector}`, count + 1);
+          }
+        },
       },
     ],
-  ],
-  [
-    "homepage-05",
-    [
-      "destroy",
-      () => {
-        removeAllDatasetCounters();
+  },
+  {
+    stepId: "homepage-05",
+    eventHandlers: [
+      {
+        event: "destroy",
+        handler() {
+          removeAllDatasetCounters();
+        },
+      },
+      {
+        event: "show",
+        handler() {
+          encapsulateElements(
+            "homepage-06",
+            "#sidebar .sidebar-controls",
+            "afterend",
+            ["#sidebar .form-search", "#sidebar h2", "#sidebar p"],
+          );
+        },
       },
     ],
-  ],
-  [
-    "homepage-05",
-    [
-      "show",
-      () => {
-        encapsulateElements(
-          "homepage-06",
-          "#sidebar .sidebar-controls",
-          "afterend",
-          ["#sidebar .form-search", "#sidebar h2", "#sidebar p"],
-        );
+  },
+  {
+    stepId: "homepage-06",
+    eventHandlers: [
+      {
+        event: "show",
+        handler() {
+          encapsulateElements(
+            "homepage-07",
+            "#sidebar .divider",
+            "beforebegin",
+            ["#sidebar .nav", '#sidebar [href="/groups"'],
+          );
+        },
       },
     ],
-  ],
-  [
-    "homepage-06",
-    [
-      "show",
-      () => {
-        encapsulateElements("homepage-07", "#sidebar .divider", "beforebegin", [
-          "#sidebar .nav",
-          '#sidebar [href="/groups"',
-        ]);
-      },
-    ],
-  ],
-  [
-    "homepage-08",
-    [
-      "show",
-      () => {
-        const filteredTags =
-          document.querySelector<HTMLDetailsElement>("#sidebar details") ??
-          undefined;
-        if (filteredTags === undefined) {
-          console.warn("Element is unexpectedly undefined");
-          return;
-        }
+  },
+  {
+    stepId: "homepage-08",
+    eventHandlers: [
+      {
+        event: "show",
+        handler() {
+          const filteredTags =
+            document.querySelector<HTMLDetailsElement>("#sidebar details") ??
+            undefined;
+          if (filteredTags === undefined) {
+            console.warn("Element is unexpectedly undefined");
+            return;
+          }
 
-        filteredTags.open = true;
+          filteredTags.open = true;
+        },
       },
     ],
-  ],
+  },
 ];
+
+const requirements: TourData["requirements"] = {
+  mustBeLoggedIn: false,
+  path: "/",
+};
+
+export const homepageTour: TourData = {
+  id: TourId.InterfaceHomepage,
+  title: "The Tildes Homepage",
+  description: "Let's take a look at the home page and all we can do there.",
+  displayInOptionsPage: true,
+  eventHandlers,
+  requirements,
+  steps,
+};

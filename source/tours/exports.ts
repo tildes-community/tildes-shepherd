@@ -1,54 +1,13 @@
-import {
-  accountSettingsEventHandlers,
-  accountSettingsSteps,
-  homepageEventHandlers,
-  homepageSteps,
-} from "./interface/exports.js";
-import {introductionSteps} from "./introduction.js";
+import {accountSettingsTour, homepageTour} from "./interface/exports.js";
+import {introductionTour} from "./introduction.js";
+import {type TourData} from "./types.js";
 
+export * from "./introduction.js";
 export * from "./shared/exports.js";
+export * from "./types.js";
 
-export enum TourId {
-  InterfaceAccountSettings = "interface-account-settings",
-  InterfaceHomepage = "interface-homepage",
-  Introduction = "introduction",
-}
-
-export type TourRequirement = {
-  mustBeLoggedIn: boolean;
-  path: string;
-};
-
-export type TourIdsAndSteps = Array<
-  [TourId, TourStepOptions[], TourStepEventHandler[], TourRequirement]
->;
-
-export const tourIdsAndSteps: TourIdsAndSteps = [
-  [
-    TourId.Introduction,
-    introductionSteps,
-    [],
-    {
-      mustBeLoggedIn: false,
-      path: "/",
-    },
-  ],
-  [
-    TourId.InterfaceAccountSettings,
-    accountSettingsSteps,
-    accountSettingsEventHandlers,
-    {
-      mustBeLoggedIn: true,
-      path: "/settings",
-    },
-  ],
-  [
-    TourId.InterfaceHomepage,
-    homepageSteps,
-    homepageEventHandlers,
-    {
-      mustBeLoggedIn: false,
-      path: "/",
-    },
-  ],
+export const allTours: TourData[] = [
+  introductionTour,
+  accountSettingsTour,
+  homepageTour,
 ];

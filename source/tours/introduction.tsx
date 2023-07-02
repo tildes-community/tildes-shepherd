@@ -1,5 +1,5 @@
-import type Shepherd from "shepherd.js";
 import {createIntroductionUnderstood} from "../storage/common.js";
+import {TourId, type TourData} from "./types.js";
 import {openOptionsPageFromBackground, renderInContainer} from "./utilities.js";
 
 const step01 = renderInContainer(
@@ -82,7 +82,7 @@ const step03 = renderInContainer(
   </>,
 );
 
-export const introductionSteps: Shepherd.Step.StepOptions[] = [
+const steps: TourData["steps"] = [
   {
     canClickTarget: false,
     id: "introduction-01",
@@ -122,3 +122,21 @@ export const introductionSteps: Shepherd.Step.StepOptions[] = [
     text: step03,
   },
 ];
+
+const eventHandlers: TourData["eventHandlers"] = [];
+
+const requirements: TourData["requirements"] = {
+  mustBeLoggedIn: false,
+  path: "/",
+};
+
+export const introductionTour: TourData = {
+  id: TourId.Introduction,
+  title: "Tildes Shepherd Introduction",
+  description:
+    "A short introduction to Tildes Shepherd and how the tours work.",
+  displayInOptionsPage: true,
+  eventHandlers,
+  requirements,
+  steps,
+};

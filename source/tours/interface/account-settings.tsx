@@ -1,4 +1,4 @@
-import type Shepherd from "shepherd.js";
+import {type TourData, TourId} from "../types.js";
 import {renderInContainer} from "../utilities.js";
 
 const step01 = renderInContainer(
@@ -7,11 +7,26 @@ const step01 = renderInContainer(
   </>,
 );
 
-export const steps: Shepherd.Step.StepOptions[] = [
+const steps: TourData["steps"] = [
   {
     id: "account-settings-01",
     text: step01,
   },
 ];
 
-export const eventHandlers: TourStepEventHandler[] = [];
+const eventHandlers: TourData["eventHandlers"] = [];
+
+const requirements: TourData["requirements"] = {
+  mustBeLoggedIn: true,
+  path: "/settings",
+};
+
+export const accountSettingsTour: TourData = {
+  id: TourId.InterfaceAccountSettings,
+  title: "Your Account Settings",
+  description: "View your account settings and all that you can customize.",
+  displayInOptionsPage: true,
+  eventHandlers,
+  requirements,
+  steps,
+};

@@ -1,74 +1,22 @@
-import {Component, type JSX} from "preact";
-import {TourId} from "../../tours/exports.js";
+import {Component} from "preact";
+import {type TourData} from "../../tours/exports.js";
 
 type Props = {
   hasBeenCompleted: boolean;
-  name: string;
-  tourId: TourId;
+  tour: TourData;
 };
 
-function tourDescription(tourId: Props["tourId"]): JSX.Element {
-  if (tourId === TourId.Introduction) {
-    return (
-      <p class="tour-description">
-        A short introduction to Tildes Shepherd and how the tours work. Normally
-        this is automatically shown when you first installed the extension.
-      </p>
-    );
-  }
-
-  if (tourId === TourId.InterfaceHomepage) {
-    return (
-      <p class="tour-description">
-        Let's take a look at the home page and all we can do there.
-      </p>
-    );
-  }
-
-  if (tourId === TourId.InterfaceAccountSettings) {
-    return (
-      <p class="tour-description">
-        View your account settings and all that you can customize.
-      </p>
-    );
-  }
-
-  return (
-    <p class="tour-description">
-      Tour ID "{tourId}" does not have a description, this should probably be
-      fixed!
-    </p>
-  );
-}
-
-function tourLink(tourId: Props["tourId"]): string {
-  const anchor = `#tildes-shepherd-tour=${tourId}`;
+function tourLink(tour: TourData): string {
+  const anchor = `#tildes-shepherd-tour=${tour.id}`;
   const baseUrl = "https://tildes.net";
-  let path = "";
-
-  switch (tourId) {
-    case TourId.InterfaceHomepage:
-    case TourId.Introduction: {
-      path = "/";
-      break;
-    }
-
-    case TourId.InterfaceAccountSettings: {
-      path = "/settings";
-      break;
-    }
-
-    default: {
-      throw new Error(`Unswitched tour ID: ${tourId as string}`);
-    }
-  }
+  const path = tour.requirements.path;
 
   return `${baseUrl}${path}${anchor}`;
 }
 
 export class Tour extends Component<Props> {
   render() {
-    const {hasBeenCompleted, name, tourId} = this.props;
+    const {hasBeenCompleted, tour} = this.props;
     const classes = ["tour", hasBeenCompleted ? "completed" : ""].join(" ");
     const completed = hasBeenCompleted ? (
       <p class="tour-completed" title="You've completed this tour before!">
@@ -78,11 +26,11 @@ export class Tour extends Component<Props> {
 
     return (
       <div class={classes.trim()}>
-        <h3>{name}</h3>
+        <h3>{tour.title}</h3>
         {completed}
-        {tourDescription(tourId)}
+        {tour.description}
         <p class="tour-link">
-          <a href={tourLink(tourId)}>Take this tour</a>
+          <a href={tourLink(tour)}>Take this tour</a>
         </p>
       </div>
     );

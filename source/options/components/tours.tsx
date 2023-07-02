@@ -1,6 +1,6 @@
 import {Component, type JSX} from "preact";
 import {createToursCompleted} from "../../storage/common.js";
-import {TourId} from "../../tours/exports.js";
+import {allTours} from "../../tours/exports.js";
 import {Tour} from "./tour.js";
 
 type Props = Record<string, unknown>;
@@ -26,28 +26,14 @@ export class Tours extends Component<Props, State> {
   render(): JSX.Element {
     const {toursCompleted} = this.state;
 
-    const createTour = (tourId: TourId, name: string): Tour["props"] => {
-      return {
-        hasBeenCompleted: toursCompleted.has(tourId),
-        name,
-        tourId,
-      };
-    };
-
-    const tourProps: Array<Tour["props"]> = [
-      createTour(TourId.Introduction, "Introduction"),
-      createTour(TourId.InterfaceHomepage, "The Homepage"),
-      createTour(TourId.InterfaceAccountSettings, "Your Account Settings"),
-    ];
+    const tours = allTours.map((tour) => (
+      <Tour hasBeenCompleted={toursCompleted.has(tour.id)} tour={tour} />
+    ));
 
     return (
       <main>
         <h2>Tours</h2>
-        <div class="tours">
-          {tourProps.map((props) => (
-            <Tour {...props} />
-          ))}
-        </div>
+        <div class="tours">{tours}</div>
       </main>
     );
   }
