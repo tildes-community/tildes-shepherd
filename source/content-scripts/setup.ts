@@ -1,8 +1,5 @@
 import Shepherd from "shepherd.js";
-import {
-  addCompletedTour,
-  createIntroductionUnderstood,
-} from "../storage/common.js";
+import {fromStorage, StorageKey} from "../storage/common.js";
 import {
   allTours,
   introductionTour,
@@ -12,7 +9,9 @@ import {
 
 /** The main entry point for the content script. */
 async function main(): Promise<void> {
-  const introductionUnderstood = await createIntroductionUnderstood();
+  const introductionUnderstood = await fromStorage(
+    StorageKey.IntroductionUnderstood,
+  );
 
   // Get the anchor without the leading #.
   const anchor = window.location.hash.slice(1);
@@ -121,7 +120,9 @@ function startTour(data: TourData, runMainAgainAfterComplete: boolean): void {
     }
 
     // Mark the tour as completed.
-    await addCompletedTour(data.id);
+    const completedTours = await fromStorage(StorageKey.ToursCompleted);
+    completedTours.value.add(data.id);
+    await completedTours.save();
 
     if (runMainAgainAfterComplete) {
       await main();

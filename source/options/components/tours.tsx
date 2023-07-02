@@ -1,12 +1,16 @@
 import {Component, type JSX} from "preact";
-import {createToursCompleted} from "../../storage/common.js";
+import {
+  fromStorage,
+  StorageKey,
+  type StorageValues,
+} from "../../storage/common.js";
 import {allTours} from "../../tours/exports.js";
 import {Tour} from "./tour.js";
 
 type Props = Record<string, unknown>;
 
 type State = {
-  toursCompleted: Awaited<ReturnType<typeof createToursCompleted>>["value"];
+  toursCompleted: Awaited<StorageValues[StorageKey.ToursCompleted]>;
 };
 
 export class Tours extends Component<Props, State> {
@@ -14,20 +18,23 @@ export class Tours extends Component<Props, State> {
     super(props);
 
     this.state = {
-      toursCompleted: new Set(),
+      toursCompleted: undefined!,
     };
   }
 
   async componentDidMount(): Promise<void> {
-    const toursCompleted = await createToursCompleted();
-    this.setState({toursCompleted: toursCompleted.value});
+    const toursCompleted = await fromStorage(StorageKey.ToursCompleted);
+    this.setState({toursCompleted});
   }
 
   render(): JSX.Element {
     const {toursCompleted} = this.state;
+    if (toursCompleted === undefined) {
+      return <></>;
+    }
 
     const tours = allTours.map((tour) => (
-      <Tour hasBeenCompleted={toursCompleted.has(tour.id)} tour={tour} />
+      <Tour hasBeenCompleted={toursCompleted.value.has(tour.id)} tour={tour} />
     ));
 
     return (

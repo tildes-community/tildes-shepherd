@@ -1,4 +1,4 @@
-import {createIntroductionUnderstood} from "../storage/common.js";
+import {fromStorage, StorageKey} from "../storage/common.js";
 import {TourId, type TourData} from "./types.js";
 import {openOptionsPageFromBackground, renderInContainer} from "./utilities.js";
 
@@ -103,7 +103,9 @@ const steps: TourData["steps"] = [
         classes: "btn",
         text: "I understand",
         async action() {
-          const introductionUnderstood = await createIntroductionUnderstood();
+          const introductionUnderstood = await fromStorage(
+            StorageKey.IntroductionUnderstood,
+          );
           introductionUnderstood.value = true;
           await introductionUnderstood.save();
           this.complete();
