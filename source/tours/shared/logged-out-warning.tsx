@@ -1,5 +1,6 @@
 import {type JSX} from "preact";
 
+/** Check if the user is logged in and return a warning element if they aren't. */
 export function LoggedOutWarning(): JSX.Element {
   const userIsLoggedIn =
     document.querySelector(".logged-in-user-username") !== null;

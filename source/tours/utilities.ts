@@ -5,7 +5,7 @@ import browser from "webextension-polyfill";
  * Adds a `[data-tildes-shepherd-counter]` attribute to a specified element. For
  * the associated CSS, see `source/content-scripts/scss/main.scss`.
  *
- * @param selector The selector of element to apply the counter to, if the
+ * @param selector The selector of the element to apply the counter to, if the
  * target element can't be selected an error will be thrown.
  * @param count The number to display in the counter.
  */
