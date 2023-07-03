@@ -131,7 +131,7 @@ function startTour(data: TourData, runMainAgainAfterComplete: boolean): void {
 
   // For every step we have, add it to the tour and subsequently add all the
   // event handlers to that step.
-  for (const [stepNumber, stepOptions] of data.steps.entries()) {
+  for (const [stepNumber, stepOptions] of data.steps().entries()) {
     // If the final step doesn't have buttons defined, set the "Continue" button
     // text to "Finish".
     if (

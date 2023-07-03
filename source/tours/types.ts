@@ -50,8 +50,8 @@ export type TourData = {
   /** The requirements this tour must match before starting it. */
   requirements: TourRequirement;
 
-  /** All the steps this tour will take. */
-  steps: Shepherd.Step.StepOptions[];
+  /** A function that returns all the steps this tour will take. */
+  steps: () => Shepherd.Step.StepOptions[];
 
   /** The title of the tour for use in the options page. */
   title: string;

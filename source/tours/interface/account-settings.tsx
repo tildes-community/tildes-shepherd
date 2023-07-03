@@ -1,18 +1,22 @@
 import {type TourData, TourId} from "../types.js";
 import {renderInContainer} from "../utilities.js";
 
-const step01 = renderInContainer(
-  <>
-    <h1>Your Account Settings</h1>
-  </>,
-);
+function renderSteps(): ReturnType<TourData["steps"]> {
+  const step01 = renderInContainer(
+    <>
+      <h1>Your Account Settings</h1>
+    </>,
+  );
 
-const steps: TourData["steps"] = [
-  {
-    id: "account-settings-01",
-    text: step01,
-  },
-];
+  return [
+    {
+      id: "account-settings-01",
+      text: step01,
+    },
+  ];
+}
+
+const steps: TourData["steps"] = renderSteps;
 
 const eventHandlers: TourData["eventHandlers"] = [];
 
