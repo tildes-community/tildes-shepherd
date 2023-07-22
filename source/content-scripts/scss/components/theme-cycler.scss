@@ -1,0 +1,12 @@
+.tish-theme-cycler {
+  align-items: center;
+  border: 1px solid var(--button-color);
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0.4rem;
+  padding: 4px;
+
+  p {
+    margin: 0;
+  }
+}

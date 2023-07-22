@@ -1,5 +1,6 @@
 @use "shepherd-defaults";
 @use "shepherd-custom";
+@use "components/theme-cycler";
 
 [data-tildes-shepherd-counter] {
   position: relative;
