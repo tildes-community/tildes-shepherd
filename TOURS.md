@@ -8,4 +8,4 @@ Draw it in GIMP, sketch it on paper and take a picture, as long as you can show 
 
 ## Completion Status
 
-You can find a progress tracker [in this issue](https://git.bauke.xyz/tildes-community/tildes-shepherd/issues/4).
+You can find a progress tracker [in this issue](https://gitlab.com/tildes-community/tildes-shepherd/-/issues/1).

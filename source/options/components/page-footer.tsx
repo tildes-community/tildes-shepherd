@@ -10,7 +10,7 @@ export class PageFooter extends Component {
         &copy;{" "}
         <a
           target="_blank"
-          href="https://git.bauke.xyz/tildes-community/tildes-shepherd/src/branch/main/LICENSE"
+          href="https://gitlab.com/tildes-community/tildes-shepherd/-/blob/main/LICENSE"
         >
           AGPL-3.0-or-later
         </a>
@@ -26,7 +26,7 @@ export class PageFooter extends Component {
     const version = (
       <a
         target="_blank"
-        href={`https://git.bauke.xyz/tildes-community/tildes-shepherd/releases/tag/${manifest.version}`}
+        href={`https://gitlab.com/tildes-community/tildes-shepherd/-/releases/${manifest.version}`}
       >
         v{manifest.version}
       </a>
